@@ -6,6 +6,7 @@ import io.tguduru.rest.model.HelloWorldResponse;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -19,7 +20,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * @modified Jan 18, 2015
  */
 @Path("/hello")
-@Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
     private final String template;
     private final String defaultName;
@@ -37,6 +37,7 @@ public class HelloWorldResource {
 
     @GET
     @Timed
+    @Produces(MediaType.APPLICATION_JSON)
     public HelloWorldResponse helloWorld(@QueryParam("name") final Optional<String> name) {
         final String val = String.format(template, name.or(defaultName));
         return new HelloWorldResponse(val, counter.incrementAndGet());
@@ -46,6 +47,13 @@ public class HelloWorldResource {
     @Timed
     public void getHead() {
         System.out.println("Executing HEAD method");
+    }
+
+    @OPTIONS
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getOptions() {
+        System.out.println("Executing OPTIONS method");
+        return "OPTIONS";
     }
 
 }
