@@ -1,0 +1,6 @@
+<serialization>
+    <serializers>
+        <serializer type-class="product" class-name="io.tguduru.serialize.ProductSerializer"/>
+        <serializer type-class="customer" class-name="io.tguduru.serialize.CustomerSerializer"/>
+    </serializers>
+</serialization>
