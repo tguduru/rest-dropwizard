@@ -56,6 +56,8 @@ public class MainApp extends Application<HelloWorldConfiguration> {
     environment.jersey().register(helloWorldResource);
     environment.jersey().register(customerResource);
     environment.jersey().register(productResource);
+    // set the application root context path
+    environment.jersey().setUrlPattern("/ecommerce");
     final AppHealthCheck appHealthCheck = new AppHealthCheck();
     environment.healthChecks().register("template", appHealthCheck);
   }
