@@ -43,6 +43,18 @@ public class Order {
     this.totalPrice = builder.totalPrice;
   }
 
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Order{");
+    sb.append("id=").append(id);
+    sb.append(", customerId=").append(customerId);
+    sb.append(", productId=").append(productId);
+    sb.append(", quantity=").append(quantity);
+    sb.append(", totalPrice=").append(totalPrice);
+    sb.append('}');
+    return sb.toString();
+  }
+
   public static Builder newBuilder() {
     return new Builder();
   }

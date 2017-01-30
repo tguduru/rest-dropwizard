@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.collect.Maps;
@@ -29,6 +30,11 @@ import io.tguduru.response.OrderDetails;
  */
 @Path("/customers")
 public class CustomerResource {
+  private long instanceCount;
+
+  public CustomerResource() {
+    this.instanceCount = new AtomicLong().incrementAndGet();
+  }
 
   @GET
   @Path("/{id}")
@@ -38,6 +44,7 @@ public class CustomerResource {
     final Customer customer = PersistenceHelper.getInstance().getCustomers().get(id);
     if (customer == null)
       return Response.serverError().entity("CustomerResponse not found for id: " + id).build();
+    System.out.println(instanceCount);
     return Response.ok().entity(customer).build();
   }
 

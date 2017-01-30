@@ -44,4 +44,15 @@ public class Customer {
   public void setEmail(final String email) {
     this.email = email;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Customer{");
+    sb.append("id=").append(id);
+    sb.append(", name='").append(name).append('\'');
+    sb.append(", address='").append(address).append('\'');
+    sb.append(", email='").append(email).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
 }

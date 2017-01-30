@@ -8,6 +8,7 @@ import io.tguduru.health.AppHealthCheck;
 import io.tguduru.persistence.PersistenceHelper;
 import io.tguduru.resource.CustomerResource;
 import io.tguduru.resource.HelloWorldResource;
+import io.tguduru.resource.OrderResource;
 import io.tguduru.resource.ProductResource;
 
 /**
@@ -34,8 +35,8 @@ public class ECommerceApplication extends Application<HelloWorldConfiguration> {
     // populate date
 
     // add customers
-    PersistenceHelper.getInstance().addCustomer("Thiru", "Kansas City", "thiru@tguduru.com");
-    PersistenceHelper.getInstance().addCustomer("Hansi", "Kansas City", "hansi@tguduru.com");
+    PersistenceHelper.getInstance().addCustomer("Sourav", "India", "thiru@email.com");
+    PersistenceHelper.getInstance().addCustomer("Dhoni", "India", "hansi@email.com");
     PersistenceHelper.getInstance().addProduct("iPhone", 699.99);
     PersistenceHelper.getInstance().addProduct("iPad", 499.99);
     PersistenceHelper.getInstance().addProduct("iPod", 199.99);
@@ -53,9 +54,15 @@ public class ECommerceApplication extends Application<HelloWorldConfiguration> {
     final CustomerResource customerResource = new CustomerResource();
     final ProductResource productResource = new ProductResource();
 
+    // since we have already created an instance and registered then JAX-RS runtime engine won't
+    // instantiate every time, these are singletons.
     environment.jersey().register(helloWorldResource);
     environment.jersey().register(customerResource);
     environment.jersey().register(productResource);
+
+    // since we are registering a class,its not singleton so for every request an instance will be
+    // created.
+    environment.jersey().register(OrderResource.class);
     // set the application root context path
     environment.jersey().setUrlPattern("/ecommerce");
     final AppHealthCheck appHealthCheck = new AppHealthCheck();
