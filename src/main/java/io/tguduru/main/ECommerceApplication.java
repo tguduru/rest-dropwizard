@@ -16,9 +16,9 @@ import io.tguduru.resource.ProductResource;
  * @author Thirupathi Reddy Guduru
  * @modified Jan 18, 2015
  */
-public class MainApp extends Application<HelloWorldConfiguration> {
+public class ECommerceApplication extends Application<HelloWorldConfiguration> {
   public static void main(final String[] args) throws Exception {
-    new MainApp().run(args);
+    new ECommerceApplication().run(args);
   }
 
   @Override

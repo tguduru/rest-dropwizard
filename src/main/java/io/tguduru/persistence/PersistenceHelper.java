@@ -51,7 +51,7 @@ public class PersistenceHelper {
     return this.customerOrders;
   }
 
-  public void addCustomer(final String name, final String address, final String email) {
+  public long addCustomer(final String name, final String address, final String email) {
     final long id = this.atomicLong.incrementAndGet();
     final Customer customer = new Customer();
     customer.setName(name);
@@ -59,18 +59,20 @@ public class PersistenceHelper {
     customer.setEmail(email);
     customer.setId(id);
     this.customers.put(id, customer);
+    return id;
   }
 
-  public void addProduct(final String name, final double price) {
+  public long addProduct(final String name, final double price) {
     final long id = this.atomicLong.incrementAndGet();
     final Product product = new Product();
     product.setId(id);
     product.setName(name);
     product.setPrice(price);
     this.products.put(id, product);
+    return id;
   }
 
-  public void addOrder(final long customerId, final long productId, final long quantity) {
+  public long addOrder(final long customerId, final long productId, final long quantity) {
     Product product = products.get(productId);
     final long orderId = this.atomicLong.incrementAndGet();
     final Order order =
@@ -79,5 +81,6 @@ public class PersistenceHelper {
     Map<Long, Order> orderMap = Maps.newHashMap();
     orderMap.put(orderId, order);
     this.customerOrders.put(customerId, orderMap);
+    return orderId;
   }
 }
